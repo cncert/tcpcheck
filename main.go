@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -22,7 +23,8 @@ func rawConnect(remoteIP string, remotePort string) {
 	tEnd := time.Now()
 	duration := tEnd.Sub(tStatrt)
 	if err != nil {
-		logger.Fatalf("dstAddr: %s:%s, Status: %s, time: %s", remoteIP, remotePort, "connection refused", duration)
+		fmt.Println(err)
+		logger.Printf("dstAddr: %s:%s, Status: %s, time: %s", remoteIP, remotePort, "connection refused", duration)
 	}
 	if conn != nil {
 		defer conn.Close()
@@ -46,5 +48,7 @@ func init() {
 
 func main() {
 	flag.Parse()
-	rawConnect(remoteIP, remotePort)
+	for range time.Tick(5 * time.Minute) {
+		rawConnect(remoteIP, remotePort)
+	}
 }
