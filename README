@@ -1,0 +1,6 @@
+TCP PORT CHECK
+
+用法：
+./main  -remoteIP=<your ip> -remotePort=<your port>
+
+结果输出到check.log中
